@@ -20,6 +20,10 @@ percentage1 = col2.number_input('Percentage',min_value=0.0,max_value=100.0,step=
 composition2 = col2.selectbox('Composition',compositions,key='composition2')
 percentage2 = col2.number_input('Percentage',min_value=0.0,max_value=100.0,step=5.0,format='%.2f',key='percentage2')
 col2.write(f'Totaal {percentage1+percentage2}%')
+if (percentage1+percentage2) < 100:
+    col2.error('Totaal minder dan 100%')
+elif (percentage1+percentage2) > 100:
+    col2.error('Totaal meer dan 100%')
 
 printtype = col3.selectbox('Print type',printtypes,key='printtype')
 transport = col4.selectbox('Mode of transport',transports,key='transport')
