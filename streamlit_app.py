@@ -47,5 +47,7 @@ if composition1 == 'Wool':
 # st.success('Success message')
 #st.exception(e)
 
+st.write('versie 0.1')
+
 
 
