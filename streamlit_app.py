@@ -10,7 +10,7 @@ categories = ['T-shirt','Hoody','Trousers','Jacket','Socks']
 compositions = ['Cotton','Wool','Polyester','Viscose','Acrylic']
 printtypes = ['Zeefdruk','Anders...']
 transports = ['Air','Boat','Truck']
-countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal']
+countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal','Netherlands']
 
 col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
 
