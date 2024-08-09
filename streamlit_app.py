@@ -52,8 +52,11 @@ df_all['Uitstoot gram C02/kWh'] = df_all['Carbon intensity of electricity - gCO2
 df_all['Year'] = df_all['Year'].astype(str)
 df_shortlist = df_all[df_all.index.isin(countries)]
 df_shortlist_2023 = df_shortlist[df_shortlist['Year']=='2023']
+gcol1.write('Gram C02 per kWh in tabel')
 gcol1.dataframe(df_shortlist_2023[['Code','Year','Uitstoot gram C02/kWh']])
+gcol2.write('Gram C02 per kWh')
 gcol2.bar_chart(df_shortlist_2023,x='Code',y=['Carbon intensity of electricity - gCO2/kWh'])
+gcol3.write('Gram C02 per kWh vanaf 2013')
 gcol3.line_chart(df_shortlist[df_shortlist['Year']>'2012'],x='Year',y=['Carbon intensity of electricity - gCO2/kWh'],color='Code')
 # st.line_chart(df_shortlist,x='Year',y=['Carbon intensity of electricity - gCO2/kWh'])
 # df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2022)]
@@ -90,7 +93,7 @@ st.info(uitleg)
 
 
 
-st.write('versie 0.41')
+st.write('versie 0.4.2')
 
 
 
