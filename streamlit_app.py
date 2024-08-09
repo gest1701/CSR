@@ -45,15 +45,21 @@ if composition1 == 'Wool':
     st.toast('Wol is een verstandige keus!!')
 
 
-df_all = pd.read_csv('./carbon-intensity-electricity.csv',index_col='Entity') #How to do this online?
-df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2023)]
-df_short['Jaar'] = df_short['Year'].astype(str)
-df_short['Uitstoot gram C02/kWh'] = df_short['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
-
-st.dataframe(df_short[['Code','Jaar','Carbon intensity of electricity - gCO2/kWh','Uitstoot gram C02/kWh']],hide_index=False)
-
-chart_data = df_short[['Carbon intensity of electricity - gCO2/kWh']]
-st.bar_chart(chart_data)
+#df_all = pd.read_csv('./carbon-intensity-electricity.csv',index_col='Entity') #How to do this online?
+url = 'https://big8.nl/data/carbon-intensity-electricity.csv'
+df_all = pd.read_csv(url,index_col='Entity')
+df_all['Uitstoot gram C02/kWh'] = df_all['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
+df_all['Year'] = df_all['Year'].astype(str)
+df_shortlist = df_all[df_all.index.isin(countries)]
+st.dataframe(df_shortlist[['Code','Year','Uitstoot gram C02/kWh']])
+# df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2022)]
+# df_short['Jaar'] = df_short['Year'].astype(str)
+# df_short['Uitstoot gram C02/kWh'] = df_short['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
+#
+# st.dataframe(df_short[['Code','Jaar','Carbon intensity of electricity - gCO2/kWh','Uitstoot gram C02/kWh']],hide_index=False)
+#
+# chart_data = df_short[['Carbon intensity of electricity - gCO2/kWh']]
+# st.bar_chart(chart_data)
 
 
 # st.balloons()
