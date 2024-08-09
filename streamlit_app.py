@@ -51,7 +51,9 @@ df_all = pd.read_csv(url,index_col='Entity')
 df_all['Uitstoot gram C02/kWh'] = df_all['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
 df_all['Year'] = df_all['Year'].astype(str)
 df_shortlist = df_all[df_all.index.isin(countries)]
-st.dataframe(df_shortlist[['Code','Year','Uitstoot gram C02/kWh']])
+df_shortlist_2023 = df_shortlist[df_shortlist['Year']=='2023']
+st.dataframe(df_shortlist_2023[['Code','Year','Uitstoot gram C02/kWh']])
+st.bar_chart(df_shortlist_2023,x='Code',y=['Carbon intensity of electricity - gCO2/kWh'])
 # df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2022)]
 # df_short['Jaar'] = df_short['Year'].astype(str)
 # df_short['Uitstoot gram C02/kWh'] = df_short['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
