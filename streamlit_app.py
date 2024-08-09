@@ -11,7 +11,7 @@ categories = ['T-shirt','Hoody','Trousers','Jacket','Socks']
 compositions = ['Cotton','Wool','Polyester','Viscose','Acrylic']
 printtypes = ['Zeefdruk','Anders...']
 transports = ['Air','Boat','Truck']
-countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal','Netherlands']
+countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal']
 
 col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
 
@@ -54,6 +54,7 @@ df_shortlist = df_all[df_all.index.isin(countries)]
 df_shortlist_2023 = df_shortlist[df_shortlist['Year']=='2023']
 gcol1.dataframe(df_shortlist_2023[['Code','Year','Uitstoot gram C02/kWh']])
 gcol2.bar_chart(df_shortlist_2023,x='Code',y=['Carbon intensity of electricity - gCO2/kWh'])
+gcol3.line_chart(df_shortlist[df_shortlist['Year']>'2012'],x='Year',y=['Carbon intensity of electricity - gCO2/kWh'],color='Code')
 # st.line_chart(df_shortlist,x='Year',y=['Carbon intensity of electricity - gCO2/kWh'])
 # df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2022)]
 # df_short['Jaar'] = df_short['Year'].astype(str)
@@ -89,7 +90,7 @@ st.info(uitleg)
 
 
 
-st.write('versie 0.4')
+st.write('versie 0.41')
 
 
 
