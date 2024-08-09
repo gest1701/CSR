@@ -1,5 +1,7 @@
 import streamlit as st
+from streamlit_tags import st_tags
 import pandas as pd
+
 st.set_page_config(layout="wide")
 st.title('CO2 calculator!')
 st.write('Welkom op de CO2 calculator!')
@@ -10,7 +12,7 @@ printtypes = ['Zeefdruk','Anders...']
 transports = ['Air','Boat','Truck']
 countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal']
 
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
 
 category = col1.selectbox('Category:', categories)
 
@@ -39,17 +41,46 @@ if (country == 'China' and transport == 'Truck'):
 st.write(f'You have selected combination:')
 st.write(f'{category} made from {composition1} made in {country}')
 
-# st.balloons()
-# st.snow()
 if composition1 == 'Wool':
     st.toast('Wol is een verstandige keus!!')
+
+
+df_all = pd.read_csv('./carbon-intensity-electricity.csv',index_col='Entity') #How to do this online?
+df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2023)]
+df_short['Jaar'] = df_short['Year'].astype(str)
+df_short['Uitstoot gram C02/kWh'] = df_short['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
+
+st.dataframe(df_short[['Code','Jaar','Carbon intensity of electricity - gCO2/kWh','Uitstoot gram C02/kWh']],hide_index=False)
+
+chart_data = df_short[['Carbon intensity of electricity - gCO2/kWh']]
+st.bar_chart(chart_data)
+
+
+# st.balloons()
+# st.snow()
 # st.error('Error message')
 # st.warning('Warning message')
 # st.info('Info message')
 # st.success('Success message')
 #st.exception(e)
 
-st.write('versie 0.2')
+
+
+
+uitleg = 'To tackle the impact on the environment, the EU wants to reduce textile waste and increase the life cycle and recycling of textiles. This is part of the plan to achieve a circular economy by 2050.'
+st.info(uitleg)
+
+# keywords = st_tags(
+#     label='Enter Keywords:',
+#     text='Press enter to add more',
+#     value=['Zero', 'One', 'Two'],
+#     suggestions=['five', 'six', 'seven', 'eight', 'nine', 'three', 'eleven', 'ten', 'four','Rob van Gestel'],
+#     maxtags=5,
+#     key="aljnf")
+
+
+
+st.write('versie 0.4')
 
 
 
