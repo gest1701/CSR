@@ -38,23 +38,22 @@ if (country == 'China' and transport == 'Truck'):
     col5.warning('Are you sure transport is Truck from China?')
 
 
-
-st.write(f'You have selected combination:')
-st.write(f'{category} made from {composition1} made in {country}')
+st.write(f'You have selected combination: **{category} made from {composition1} made in {country}**')
 
 if composition1 == 'Wool':
     st.toast('Wol is een verstandige keus!!')
 
 
 #df_all = pd.read_csv('./carbon-intensity-electricity.csv',index_col='Entity') #How to do this online?
+gcol1, gcol2,gcol3, gcol4= st.columns(4)
 url = 'https://big8.nl/data/carbon-intensity-electricity.csv'
 df_all = pd.read_csv(url,index_col='Entity')
 df_all['Uitstoot gram C02/kWh'] = df_all['Carbon intensity of electricity - gCO2/kWh'].astype(int).astype(str) + ' gram C02/kWh'
 df_all['Year'] = df_all['Year'].astype(str)
 df_shortlist = df_all[df_all.index.isin(countries)]
 df_shortlist_2023 = df_shortlist[df_shortlist['Year']=='2023']
-st.dataframe(df_shortlist_2023[['Code','Year','Uitstoot gram C02/kWh']])
-st.bar_chart(df_shortlist_2023,x='Code',y=['Carbon intensity of electricity - gCO2/kWh'])
+gcol1.dataframe(df_shortlist_2023[['Code','Year','Uitstoot gram C02/kWh']])
+gcol2.bar_chart(df_shortlist_2023,x='Code',y=['Carbon intensity of electricity - gCO2/kWh'])
 # st.line_chart(df_shortlist,x='Year',y=['Carbon intensity of electricity - gCO2/kWh'])
 # df_short = df_all[(df_all.index.isin(countries)) & (df_all.Year==2022)]
 # df_short['Jaar'] = df_short['Year'].astype(str)
