@@ -13,7 +13,7 @@ printtypes = ['Zeefdruk','Anders...']
 transports = ['Air','Boat','Truck']
 countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal']
 colors = ['Dark','Mid','Light']
-st.logo('logo.png')
+#st.logo('logo.png')
 
 co2_emissions = {
     "China": {
