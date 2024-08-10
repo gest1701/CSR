@@ -12,9 +12,56 @@ compositions = ['Cotton','Wool','Polyester','Viscose','Acrylic']
 printtypes = ['Zeefdruk','Anders...']
 transports = ['Air','Boat','Truck']
 countries = ['China','Vietnam','Bangladesh','India','Turkey','Portugal']
+colors = ['Dark','Mid','Light']
+st.logo('logo.png')
+
+co2_emissions = {
+    "China": {
+        "Rotterdam": {
+            "Air": 2500,    # kg CO2 per ton
+            "Boat": 150,    # kg CO2 per ton
+            "Truck": 2000   # kg CO2 per ton
+        }
+    },
+    "Vietnam": {
+        "Rotterdam": {
+            "Air": 2400,    # kg CO2 per ton
+            "Boat": 120,    # kg CO2 per ton
+            "Truck": 1800   # kg CO2 per ton
+        }
+    },
+    "Bangladesh": {
+        "Rotterdam": {
+            "Air": 2300,    # kg CO2 per ton
+            "Boat": 100,    # kg CO2 per ton
+            "Truck": 1700   # kg CO2 per ton
+        }
+    },
+    "India": {
+        "Rotterdam": {
+            "Air": 2000,    # kg CO2 per ton
+            "Boat": 130,    # kg CO2 per ton
+            "Truck": 1600   # kg CO2 per ton
+        }
+    },
+    "Turkey": {
+        "Rotterdam": {
+            "Air": 1200,    # kg CO2 per ton
+            "Boat": 80,     # kg CO2 per ton
+            "Truck": 500    # kg CO2 per ton
+        }
+    },
+    "Portugal": {
+        "Rotterdam": {
+            "Air": 400,     # kg CO2 per ton
+            "Boat": 50,     # kg CO2 per ton
+            "Truck": 300    # kg CO2 per ton
+        }
+    }
+}
+
 
 col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
-
 category = col1.selectbox('Category:', categories)
 
 # Compositie
@@ -32,12 +79,25 @@ elif (percentage1+percentage2) > 100:
     col2.error('Totaal meer dan 100%')
 
 printtype = col3.selectbox('Print type',printtypes,key='printtype')
-country = col4.selectbox('Country',countries)
-transport = col5.selectbox('Mode of transport',transports,key='transport')
+embroidery_time = col4.number_input('Embroidery time (minutes)',min_value=0.0,max_value=60.0,step=1.0,value=5.0,format='%.2f',key='embroidery_time')
+garment_weight = col5.number_input('Garment weight (gr)',min_value=0.0,max_value=100.0,step=1.0,value=5.0,format='%.2f',key='garment_weight')
+buttons_qty = col6.number_input('Buttons qty',min_value=0,max_value=10,step=1,value=1,key='buttons_qty')
+zippers_qty = col7.number_input('Zippers qty',min_value=0,max_value=10,step=1,value=1,key='zippers_qty')
+color = col8.selectbox('Color',colors)
+
+
+st.write('**Origin and transport to Rotterdam**')
+col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
+country = col1.selectbox('Country',countries)
+transport = col2.selectbox('Mode of transport',transports,key='transport')
+
+co2_transport = co2_emissions[country]['Rotterdam'][transport]
+col3.write(' ')
+col3.write(' ')
+col3.write(f'{co2_transport} kg C02 per ton')
+
 if (country == 'China' and transport == 'Truck'):
-    col5.warning('Are you sure transport is Truck from China?')
-
-
+    col4.warning('Are you sure transport is Truck from China?')
 st.write(f'You have selected combination: **{category} made from {composition1} made in {country}**')
 
 if composition1 == 'Wool':
@@ -45,6 +105,7 @@ if composition1 == 'Wool':
 
 
 #df_all = pd.read_csv('./carbon-intensity-electricity.csv',index_col='Entity') #How to do this online?
+st.subheader('CO2 output for electricty production')
 gcol1, gcol2,gcol3, gcol4= st.columns(4)
 url = 'https://big8.nl/data/carbon-intensity-electricity.csv'
 df_all = pd.read_csv(url,index_col='Entity')
@@ -93,7 +154,7 @@ st.info(uitleg)
 
 
 
-st.write('versie 0.4.2')
+st.write('versie 0.5.1')
 
 
 
