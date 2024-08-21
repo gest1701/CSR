@@ -62,7 +62,7 @@ co2_emissions = {
 
 
 col1, col2, col3, col4, col5,col6,col7,col8 = st.columns(8)
-category = col1.selectbox('Category:', categories)
+category = col1.selectbox('Category of stuff:', categories)
 
 # Compositie
 composition1 = col2.selectbox('Composition',compositions)
@@ -93,8 +93,8 @@ transport = col2.selectbox('Mode of transport',transports,key='transport')
 
 co2_transport = co2_emissions[country]['Rotterdam'][transport]
 col3.write(' ')
-col3.write(' ')
-col3.write(f'{co2_transport} kg C02 per ton')
+#col3.write(' ')
+col3.success(f'{co2_transport} kg C02 per ton')
 
 if (country == 'China' and transport == 'Truck'):
     col4.warning('Are you sure transport is Truck from China?')
